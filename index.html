@@ -5,14 +5,36 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Q1 Project</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"></link>
   <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
   <body>
-    <canvas id="canvas-1" width="400" height="300"></canvas>
-    <section>
-      <h2>Data</h2>
-      <section id="data"></section>
-    </section>
+    <div class="container">
+        <h2>Energy Data</h2>
+    
+      <div class="row">
+        <section class="six columns">
+          <h4>Graph</h4>
+          <canvas id="canvas-1" width="400" height="300"></canvas>
+        </section>
+        <section class="six columns">
+          <h4>Instantaneous</h4>
+          <table id="register-table">
+            <thead>
+              <tr>
+                <th>Register Name</th>
+                <th>Value</th>
+                <th>Type</th>
+              </tr>
+            </thead>
+            <tbody id="register-table-rows">
+              <!--Data From eGauge-->
+            </tbody>
+          </table>
+        </section>
+      </div>
+
+    </div>
   </body>
   <script src="app.js"></script>
   <script src="draw.js"></script>

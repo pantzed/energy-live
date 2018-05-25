@@ -2,3 +2,10 @@ canvas {
   border: 1px solid gray;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
+
+/* .flex-vertical {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+} */
