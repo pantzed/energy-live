@@ -88,6 +88,5 @@
     })
   }
   callEgauge();
-  // setInterval(callEgauge, 2000);
 
 })();

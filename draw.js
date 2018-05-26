@@ -1,12 +1,21 @@
+import Chart from "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js";
+
 (function() {
 
-  let canvas = document.getElementById('canvas-1');
-  let ctx = canvas.getContext('2d');
-  
-  ctx.fillStyle = "green";
-  ctx.fillRect(10, 200, 40, 100);
-  
-  ctx.fillStyle = "blue";
-  ctx.fillRect(60, 150, 40, 150);
+  let ctx = document.getElementById('canvas-1').getContext('2d');
+
+  let powerBars = new CharacterData(ctx, {
+    type: 'bar',
+    data: {
+      labels: ["Grid"],
+      datasets: [{
+        label: "Power",
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [50]
+      }]
+    },
+    options: {}
+  });
   
   })();
