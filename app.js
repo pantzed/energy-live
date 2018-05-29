@@ -12,7 +12,7 @@
     return obj;
   }
 
-  function updateSiteWithNewData(data){
+  function makeTableWithData(data){
     let regList = document.getElementById('register-table-rows');
     regList.innerHTML = "";
     for (let key in data) {
@@ -83,10 +83,10 @@
       timeStamp = jsonObject.data.ts;
       serial = jsonObject.data['@attributes'].serial;
       registers = makeRegistersObject(jsonObject.data.r);
-      updateSiteWithNewData(registers);
       callEgauge();
     })
   }
   callEgauge();
+  setInterval(makeTableWithData, 1000);
 
 })();
