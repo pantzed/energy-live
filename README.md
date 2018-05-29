@@ -1,5 +1,5 @@
 # energy-graph
-A webpage that displays graphical electrical energy data.
+A webpage that displays electrical energy data.
 
 ## Project Specs:
 
@@ -44,17 +44,15 @@ Transfer-Encoding: chunked
 ```
 
 ### Technical Stack
-* CSS Framework
-	Skeleton
-* Javascript Libraries
-	Standard
-* External Libraries
-Maybe d3.js
-* Deployment Method
-	Surge
+* CSS Framework: Skeleton
+* Javascript Libraries: [Chart.js](http://www.chartjs.org/)
+* Deployment Method: Surge
     
 ### Feature List
-Input a specific energy meter
-Options for a static or dynamic graph
-Mobile friendly
+* Input a specific energy meter
+* Display numerical data in a table
+* Bar graph showing value for each measurement point
+* Mobile friendly/Responsive design
+
+
 
