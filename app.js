@@ -76,6 +76,54 @@
     return obj;
   }
 
+    //Functions to build, populate, and update graph
+    let graphLabels = [];
+    let dataSet = [];
+  
+    function makeChartObject() {
+      let ctx = document.getElementById('canvas-1').getContext('2d');
+      let chart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+          labels: graphLabels,
+          datasets: [{
+            label: "Power",
+            data: dataSet,
+            backgroundColor: [
+              'rgb(255, 99, 132)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          animation: false
+        }
+      });
+      return chart;
+    }
+
+    function gatherChartLabels(registers) {
+      for (let key in registers) {
+        graphLabels.push(key);
+      }
+    }
+
+    function gatherChartData(registers) {
+      for (let key in registers) {
+        dataSet.push(registers[key].delta);
+      }
+    }
+
+    function destroyChart(chart) {
+      delete chart;
+    }
+
+    function clearChartDataAndLabels(){
+      graphLabels = [];
+      dataSet = [];
+    }
+    //End graph stuff
+
   function callEgauge() {
     fetch(`https://cors-anywhere.herokuapp.com/http://${deviceName}.${proxy}/cgi-bin/egauge?inst`, {
       method: "GET"
@@ -91,10 +139,17 @@
       serial = jsonObject.data['@attributes'].serial;
       registers = makeRegistersObject(jsonObject.data.r);
       makeTableWithData(registers);
+      clearChartDataAndLabels();
+      gatherChartData(registers);
+      gatherChartLabels(registers);
+      makeChartObject();
+      console.log(graphLabels, dataSet);
     })
     .then(() => {
       if (abort === true){
         abort = false;
+        destroyChart(powerBars);
+        clearChartDataAndLabels();
         return;
       }
       else {
@@ -133,5 +188,6 @@
   function removeBlinker() {
     document.getElementById('blinker').classList.remove('blinker');
   }
+
 
 })();
