@@ -13,38 +13,56 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 </head>
   <body>
-    <div class="container">
-        <h2>Energy Data</h2>
-        <section class="input">
+    <nav>
+      <span>Energy Live</span>
+      <section class="input">
           <form id="device-form" method="POST">
             <label for="device-name">Enter Your Device:</label>
             <input id="device-name" type="text" name="device-name" placeholder="eg. 'egauge9999'">
             <button type="submit">Submit</button>
           </form>
         </section>
-      <div class="row">
-        <!-- <section class="six columns">
-          <h4>Graph</h4>
-          <canvas id="canvas-1" width="400" height="300"></canvas>
-        </section> -->
-        <section class="six columns">
-          <h4>Instantaneous</h4>
-          <table id="register-table">
-            <thead>
-              <tr>
-                <th>Register Name</th>
-                <th>Value</th>
-                <th>Type</th>
-              </tr>
-            </thead>
-            <tbody id="register-table-rows">
-              <!--Data From eGauge-->
-            </tbody>
-          </table>
-        </section>
-      </div>
-
+    </nav>
+    <div class="flex-aside-and-main">
+      <aside>
+        <ul>
+          <li><a href="#" class="active">Live Feed</a></li>
+          <li><a href="#">Graph</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </aside>
+      <main class="container">
+        <div class="row">
+          <section class="nine columns">
+            <div class="flex-blinker">
+              <header class="table-title">Instantaneous</header>
+              <div id="blinker"></div>
+            </div>
+            <table id="register-table" class="register-table">
+              <thead>
+                <tr>
+                  <th>Register Name</th>
+                  <th>Value</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody id="register-table-rows">
+                <!--Data From eGauge-->
+              </tbody>
+            </table>
+          </section>
+        </div> <!--end row-->
+      </main>
     </div>
+    <footer>
+      <section>
+        <ul>
+          <li><a href="edpantzar@gmail.com">Email</a></li>
+          <li><a href="https://github.com/pantzed">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/ed-pantzar-63a4174a/">LinkedIn</a></li>
+        </ul>
+      </section>
+    </footer>
   </body>
   <script src="app.js"></script>
   <script src="draw.js"></script>

@@ -1,11 +1,123 @@
+body {
+  margin: 0;
+}
+
+a {
+  color: #E0E1DD;
+  text-decoration: none;
+}
+
+aside {
+  background-color: #1B263B;
+  min-width: 12%;
+}
+
+nav {
+  background-color: #415A77;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+}
+
+nav span {
+  font-size: 2em;
+  font-weight: 400;
+  margin: 10px 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+}
+
+form label, form input {
+  margin: 0 10px 0 0;
+}
+
+form label {
+  margin-left: 20px;
+}
+
+form button {
+  color: white;
+  margin: 0 20px 0 0;
+}
+
+footer {
+  background-color: #0D1B2A;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+footer ul > li {
+  color: black;
+  display: inline-block;
+}
+
 canvas {
   border: 1px solid gray;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
 
-/* .flex-vertical {
+ul {
+  margin: 30px 0px;
+}
+
+ul li {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+ul > li a {
+  margin: 5px 10px 5px 20px;
+  text-align: right;
+}
+
+.active {
+  border-bottom: 2px solid #E0E1DD;
+}
+
+.blinker {
+  animation: blink 2s ease-in-out infinite;
+  border-radius: 15px;
+  height: 15px;
+  width: 15px;
+  background-color: greenyellow;
+  margin: 0 10px;
+}
+
+@keyframes blink {
+  100% {
+    opacity: 0;
+  }
+}
+
+.table-title {
+  font-size: 1.6em;
+  font-weight: 400;
+  margin: 20px 0;
+}
+
+.flex-blinker {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-} */
+  align-items: baseline;
+}
+
+.flex-aside-and-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.container{
+  height: 800px;
+}

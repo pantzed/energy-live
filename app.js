@@ -99,6 +99,7 @@
       }
       else {
         callEgauge();
+        addBlinker();
       }
     })
   }
@@ -121,7 +122,16 @@
   document.getElementById('device-form').addEventListener('submit', function(){
     clearAllOnNewSubmit();
     clearForm();
+    removeBlinker();
     callEgauge();
   });
+
+  function addBlinker() {
+    document.getElementById('blinker').classList.add('blinker');
+  }
+
+  function removeBlinker() {
+    document.getElementById('blinker').classList.remove('blinker');
+  }
 
 })();
