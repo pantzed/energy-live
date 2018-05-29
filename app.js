@@ -11,9 +11,22 @@
   function makeRegistersObject(registers) {
     let obj = {};
     registers.forEach(function(innerObj) {
-      obj[innerObj['@attributes'].n] = {'type': `${[innerObj['@attributes'].t]}`, 'power': Math.abs(parseFloat([innerObj.v])), 'delta': Math.abs(parseFloat([innerObj.i]))};
+      obj[innerObj['@attributes'].n] = {'type': `${convertRegisterType(innerObj)}`, 'power': Math.abs(parseFloat([innerObj.v])), 'delta': Math.abs(parseFloat([innerObj.i]))};
     });
     return obj;
+  }
+
+  function convertRegisterType(obj) {
+    let type = obj['@attributes'].t;
+    if (type === 'P' || type === 'S') {
+      return 'kW';
+    }
+    else if (type === 'V') {
+      return 'Volts';
+    }
+    else {
+      return type;
+    }
   }
 
   function makeTableWithData(data){
