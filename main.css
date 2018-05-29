@@ -113,6 +113,7 @@ ul > li a {
 }
 
 .flex-aside-and-main {
+  min-height: 800px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -122,6 +123,6 @@ ul > li a {
   margin-top: 30px;
 }
 
-.container{
+/* .container{
   height: 800px;
-}
+} */

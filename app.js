@@ -79,10 +79,11 @@
     //Functions to build, populate, and update graph
     let graphLabels = [];
     let dataSet = [];
+    let chart;
   
     function makeChartObject() {
       let ctx = document.getElementById('canvas-1').getContext('2d');
-      let chart = new Chart(ctx, {
+      chart = new Chart(ctx, {
         type: 'horizontalBar',
         data: {
           labels: graphLabels,
@@ -99,7 +100,6 @@
           animation: false
         }
       });
-      return chart;
     }
 
     function gatherChartLabels(registers) {
@@ -114,8 +114,8 @@
       }
     }
 
-    function destroyChart(chart) {
-      delete chart;
+    function destroyChart() {
+      chart = '';
     }
 
     function clearChartDataAndLabels(){
@@ -143,12 +143,11 @@
       gatherChartData(registers);
       gatherChartLabels(registers);
       makeChartObject();
-      console.log(graphLabels, dataSet);
     })
     .then(() => {
       if (abort === true){
         abort = false;
-        destroyChart(powerBars);
+        destroyChart();
         clearChartDataAndLabels();
         return;
       }
