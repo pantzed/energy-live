@@ -1,4 +1,8 @@
 (function(){
+  let abort;
+  let proxy = 'egaug.es';
+  let deviceName;
+  let xmlDOM;
   let jsonObject;
   let registers;
   let timeStamp;
@@ -73,20 +77,51 @@
   }
 
   function callEgauge() {
-    fetch("https://cors-anywhere.herokuapp.com/http://egauge8642.egaug.es/cgi-bin/egauge?inst", {
+    fetch(`https://cors-anywhere.herokuapp.com/http://${deviceName}.${proxy}/cgi-bin/egauge?inst`, {
       method: "GET"
     })
     .then(data => data.text())
     .then(xml => {
+      document.getElementById('device-form').addEventListener('submit', function(){
+        abort = true;
+      });
       xmlDOM = new DOMParser().parseFromString(xml, 'text/xml');
       jsonObject = xmlToJson(xmlDOM);
       timeStamp = jsonObject.data.ts;
       serial = jsonObject.data['@attributes'].serial;
       registers = makeRegistersObject(jsonObject.data.r);
       makeTableWithData(registers);
-      callEgauge();
+    })
+    .then(() => {
+      if (abort === true){
+        abort = false;
+        return;
+      }
+      else {
+        callEgauge();
+      }
     })
   }
-  callEgauge();
+
+  function clearAllOnNewSubmit() {
+    event.preventDefault();
+    xmlDOM = '';
+    jsonObject = '';
+    timeStamp = '';
+    serial = '';
+    registers = '';
+    deviceName = document.getElementById('device-name').value;
+    console.log(deviceName);
+  }
+
+  function clearForm() {
+    document.getElementById('device-name').value = '';
+  }
+
+  document.getElementById('device-form').addEventListener('submit', function(){
+    clearAllOnNewSubmit();
+    clearForm();
+    callEgauge();
+  });
 
 })();
