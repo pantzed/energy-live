@@ -90,6 +90,7 @@
   }
 
     //Functions to build, populate, and update graph
+    let chartObjArray = [];
     let graphLabels = [];
     let dataSet = [];
     let chart;
@@ -113,6 +114,14 @@
           animation: false
         }
       });
+      return chart;
+    }
+
+    function updateChartData() {
+      let chartObj = chartObjArray[0];
+      chartObj.data.datasets.data = dataSet;
+      chartObj.data.labels = graphLabels;
+      chartObj.update()
     }
 
     function gatherChartLabels(registers) {
@@ -127,8 +136,8 @@
       }
     }
 
-    function destroyChart() {
-      chart = '';
+    function clearChartArray() {
+      chartObjArray = [];
     }
 
     function clearChartDataAndLabels(){
@@ -152,15 +161,28 @@
       serial = jsonObject.data['@attributes'].serial;
       registers = makeRegistersObject(jsonObject.data.r);
       makeTableWithData(registers);
-      clearChartDataAndLabels();
-      gatherChartData(registers);
-      gatherChartLabels(registers);
-      makeChartObject();
+      if (chartObjArray.length < 1) {
+        gatherChartData(registers);
+        gatherChartLabels(registers);
+        let newChart = makeChartObject();
+        chartObjArray.push(newChart);
+      }
+      else {
+        chartObjArray[0].destroy();
+        clearChartArray();
+        clearChartDataAndLabels();
+        gatherChartData(registers);
+        gatherChartLabels(registers);
+        let newChart = makeChartObject();
+        chartObjArray.push(newChart);
+        console.log(chartObjArray);
+      }
     })
     .then(() => {
       if (abort === true){
         abort = false;
-        destroyChart();
+        chartObjArray[0].destroy();
+        clearChartArray();
         clearChartDataAndLabels();
         return;
       }
