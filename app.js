@@ -83,10 +83,10 @@
       timeStamp = jsonObject.data.ts;
       serial = jsonObject.data['@attributes'].serial;
       registers = makeRegistersObject(jsonObject.data.r);
+      makeTableWithData(registers);
       callEgauge();
     })
   }
   callEgauge();
-  setInterval(makeTableWithData, 1000);
 
 })();
