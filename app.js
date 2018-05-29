@@ -19,7 +19,7 @@
   function convertRegisterType(obj) {
     let type = obj['@attributes'].t;
     if (type === 'P' || type === 'S') {
-      return 'kW';
+      return 'Watts';
     }
     else if (type === 'V') {
       return 'Volts';
