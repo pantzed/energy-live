@@ -201,7 +201,7 @@
     serial = '';
     registers = '';
     deviceName = document.getElementById('device-name').value;
-    console.log(deviceName);
+    document.getElementById('device-title').innerHTML = `${deviceName} `;
   }
 
   function clearForm() {
