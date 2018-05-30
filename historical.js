@@ -1,10 +1,14 @@
 (function (){
-  let fetchOptions = {
 
+  class FetchOptionsForNewGraph {
+    constructor (deviceName, proxyAddr, granu) {
+
+    }
+    deviceName:
   }
 
   function getVoltageFromEgauge(fetchOptions) {
-    fetch(`https://cors-anywhere.herokuapp.com/http://${deviceName}.${proxy}/cgi-bin/egauge?inst`, {
+    fetch(`https://cors-anywhere.herokuapp.com/http://${deviceName}.${proxy}/cgi-bin/egauge-show?`, {
     method: "GET"
     })
     .then((data) => data.text())
