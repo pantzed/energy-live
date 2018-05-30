@@ -1,7 +1,7 @@
 (function (){
 
   let optionsObjectArray = [];
-  let favoritesList = document.getElementById('device-list-voltage');
+  let favoritesList = document.getElementById('favorites-list');
 
   class FetchOptionsForNewGraph {
     constructor (deviceName, proxyAddr, params) {
@@ -35,8 +35,12 @@
 
   function updateFavoriteDevicesList(object) {
     let listItem = document.createElement('li');
-    listItem.innerHTML = object.deviceName;
+    let link = document.createElement('a');
+    link.innerHTML = object.deviceName;
+    link.setAttribute('index', optionsObjectArray.length - 1);
+    listItem.appendChild(link);
     favoritesList.appendChild(listItem);
+    console.log(listItem);
   }
 
   function findExistingDeviceName(object) {
@@ -47,6 +51,8 @@
     }
     return false;
   }
+
+
 
   // function getVoltageFromEgauge(fetchOptions) {
   //   fetch(`https://cors-anywhere.herokuapp.com/http://${deviceName}.${proxy}/cgi-bin/egauge-show?`, {

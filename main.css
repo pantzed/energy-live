@@ -128,6 +128,22 @@ ul > li a {
   display: none;
 }
 
+.favorites-list li{
+  display: block; 
+  text-align: left;
+}
+
+.favorites-list > li > a {
+  color: blue;
+  text-decoration-line: underline;
+
+}
+
+.favorites-list > li > a:hover {
+  text-decoration: #415A77;
+}
+
+
 @media screen and (max-width: 600px) {
   aside {
     display: none;
