@@ -110,9 +110,11 @@
           }]
         },
         options: {
-          animation: false
+          animation: false,
+          responsive: true
         }
       });
+      document.getElementById('chart-container').classList.remove('hidden');
       return chart;
     }
 
