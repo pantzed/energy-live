@@ -27,6 +27,7 @@
     else {
       updateExistingObjectInArray(exists, newFetchOptionsObject);
     }
+    document.getElementById('device-name').value = '';
   }
 
   function updateExistingObjectInArray(index, object) {
