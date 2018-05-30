@@ -92,7 +92,8 @@
     //Functions to build, populate, and update graph
     let chartObjArray = [];
     let graphLabels = [];
-    let dataSet = [];
+    let wattData = [];
+    let bgColors = [];
     let chart;
   
     function makeChartObject() {
@@ -102,11 +103,9 @@
         data: {
           labels: graphLabels,
           datasets: [{
-            label: "Power",
-            data: dataSet,
-            backgroundColor: [
-              'rgb(255, 99, 132)'
-            ],
+            label: "Watts",
+            data: wattData,
+            backgroundColor: bgColors,
             borderWidth: 1
           }]
         },
@@ -119,21 +118,32 @@
 
     function updateChartData() {
       let chartObj = chartObjArray[0];
-      chartObj.data.datasets.data = dataSet;
+      chartObj.data.datasets.data = wattData;
       chartObj.data.labels = graphLabels;
+      chartObj.data.datasets.backgroundColor = bgColor;
       chartObj.update()
     }
 
     function gatherChartLabels(registers) {
       for (let key in registers) {
-        graphLabels.push(key);
+        if (registers[key].type === "Watts") {
+          graphLabels.push(key);
+        }
       }
     }
 
     function gatherChartData(registers) {
       for (let key in registers) {
-        dataSet.push(registers[key].delta);
+        if (registers[key].type === "Watts") {
+          wattData.push(registers[key].delta);
+        }
       }
+    }
+
+    function gatherBackgroundColor(registers) {
+      wattData.forEach((x) => {
+        bgColors.push('rgb(255, 99, 150)');
+      })
     }
 
     function clearChartArray() {
@@ -142,7 +152,7 @@
 
     function clearChartDataAndLabels(){
       graphLabels = [];
-      dataSet = [];
+      wattData = [];
     }
     //End graph stuff
 
@@ -164,6 +174,7 @@
       if (chartObjArray.length < 1) {
         gatherChartData(registers);
         gatherChartLabels(registers);
+        gatherBackgroundColor();
         let newChart = makeChartObject();
         chartObjArray.push(newChart);
       }
@@ -173,9 +184,9 @@
         clearChartDataAndLabels();
         gatherChartData(registers);
         gatherChartLabels(registers);
+        gatherBackgroundColor();
         let newChart = makeChartObject();
         chartObjArray.push(newChart);
-        console.log(chartObjArray);
       }
     })
     .then(() => {
