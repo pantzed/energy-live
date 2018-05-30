@@ -48,7 +48,6 @@
   }
 
   // Changes XML to JSON
-  // Modified version from here: http://davidwalsh.name/convert-xml-json
   function xmlToJson(xml) {
     // Create the return object
     var obj = {};
