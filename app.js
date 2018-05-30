@@ -158,6 +158,25 @@
     }
     //End graph stuff
 
+  function getInformationForChartsFromRegisters(registers) {
+    gatherChartData(registers);
+    gatherChartLabels(registers);
+    gatherBackgroundColor();
+  }
+
+  function convertXMLToJSON(xml) {
+    xmlDOM = new DOMParser().parseFromString(xml, 'text/xml');
+    jsonObject = xmlToJson(xmlDOM);
+    timeStamp = jsonObject.data.ts;
+    serial = jsonObject.data['@attributes'].serial;
+    registers = makeRegistersObject(jsonObject.data.r);
+  }
+
+  function destroyChart(array) {
+    array[0].destroy();
+  }
+
+
   function callEgauge() {
     fetch(`https://cors-anywhere.herokuapp.com/http://${deviceName}.${proxy}/cgi-bin/egauge?inst`, {
       method: "GET"
@@ -167,34 +186,21 @@
       document.getElementById('device-form').addEventListener('submit', function(){
         abort = true;
       });
-      xmlDOM = new DOMParser().parseFromString(xml, 'text/xml');
-      jsonObject = xmlToJson(xmlDOM);
-      timeStamp = jsonObject.data.ts;
-      serial = jsonObject.data['@attributes'].serial;
-      registers = makeRegistersObject(jsonObject.data.r);
+      convertXMLToJSON(xml);
       makeTableWithData(registers);
-      if (chartObjArray.length < 1) {
-        gatherChartData(registers);
-        gatherChartLabels(registers);
-        gatherBackgroundColor();
-        let newChart = makeChartObject();
-        chartObjArray.push(newChart);
+      if (chartObjArray.length > 0) {
+        destroyChart(chartObjArray);
       }
-      else {
-        chartObjArray[0].destroy();
-        clearChartArray();
-        clearChartDataAndLabels();
-        gatherChartData(registers);
-        gatherChartLabels(registers);
-        gatherBackgroundColor();
-        let newChart = makeChartObject();
-        chartObjArray.push(newChart);
-      }
+      clearChartArray();
+      clearChartDataAndLabels();
+      getInformationForChartsFromRegisters(registers);
+      let newChart = makeChartObject();
+      chartObjArray.push(newChart);
     })
     .then(() => {
       if (abort === true){
         abort = false;
-        chartObjArray[0].destroy();
+        destroyChart(chartObjArray);
         clearChartArray();
         clearChartDataAndLabels();
         return;
