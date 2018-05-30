@@ -214,7 +214,7 @@
     serial = '';
     registers = '';
     deviceName = document.getElementById('device-name').value;
-    document.getElementById('device-title').innerHTML = `${deviceName} `;
+    document.getElementById('table-title').innerHTML = `${deviceName} Live Data`;
   }
 
   function clearForm() {
