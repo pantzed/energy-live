@@ -3,15 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Q1 Project</title>
+  <title>Energy Live: Voltage Graph</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"></link>
-  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../main.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 </head>
+<body>
   <body>
     <nav>
       <span>Energy Live</span>
@@ -26,33 +27,18 @@
     <div class="flex-aside-and-main">
       <aside>
         <ul>
-          <li><a href="#" class="active">Real-time</a></li>
+          <li><a href="../index.html">Real-time</a></li>
           <li><a href="#">Historical</a></li>
-          <li><a href="./html/voltage_graph.html">Voltage Graph</a></li>
+          <li><a href="#" class="active">Voltage Graph</a></li>
         </ul>
       </aside>
       <main class="container">
         <div class="row">
-          <section class="six columns">
-            <div class="flex-blinker">
-              <header id="table-title" class="table-title">Enter A Device!</header>
-              <div id="blinker"></div>
-            </div>
-            <table id="register-table" class="register-table">
-              <thead>
-                <tr>
-                  <th>Register Name</th>
-                  <th>Value</th>
-                  <th>Type</th>
-                </tr>
-              </thead>
-              <tbody id="register-table-rows">
-                <!--Data From eGauge-->
-              </tbody>
-            </table>
-          </section>
-          <section id="chart-container" class="chart-container six columns hidden">
-            <canvas id="canvas-1" class="graph-canvas" height="350" width="400"></canvas>
+          <header>
+            <div class="table-title">Voltage Graph</div>
+          </header>
+          <section id="chart-container" class="chart-container twelve columns">
+            <canvas id="canvas-voltage-radar" class="graph-canvas" height="350" width="400"></canvas>
           </section>
         </div> <!--end row-->
       </main>
@@ -67,5 +53,6 @@
       </section>
     </footer>
   </body>
-  <script src="app.js"></script>
+</body>
+<script src="../voltage.js"></script>
 </html>
