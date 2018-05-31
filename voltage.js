@@ -1,4 +1,5 @@
 (function (){
+  let chart;
   let optionsObjectArray = [];
   let favoritesList = document.getElementById('favorites-list');
 
@@ -69,26 +70,54 @@
     let columns = obj.group.data.attr.columns;
     let rows = obj.group.data.r.length;
     for (let i=0; i<columns; i++) {
+      if (obj.group.data.cname[i].t === "V") {
+        continue;
+      }
       if (datasetObject.labels === undefined) {
         datasetObject.label = `${obj.group.data.cname[i].name} (${obj.group.data.cname[i].attr.t})`;
       }
       if (datasetObject.data === undefined) {
         datasetObject.data = [];
       }
-      if (datasetObject.yAxisID === undefined) {
-        datasetObject.yAxisID = obj.group.data.cname[i].attr.t;
-      }
       for (let j=0; j<rows-1; j++){
         let delta = (Math.abs((obj.group.data.r[(j+1)].c[i]) - (obj.group.data.r[j].c[i])));
         datasetObject.data.push(delta);
       }
-      datasetObject.backgroundColor = 'rgba(99, 132, 0, 0.5)';
+      datasetObject.backgroundColor = ['rgba(255, 99, 132, 0.2)'];
       datasetArray.push(datasetObject);
       datasetObject = {};
     }
     return datasetArray
   }
 
+  function generateChart(labels, datasets) {
+    console.log(datasets[0], datasets[1])
+    let ctx = document.getElementById("historical-chart").getContext("2d");
+    let chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: labels,
+          datasets: datasets
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+    });
+    return chart;
+  }
+
+  function updateChart(chart, labels, datasets) {
+    chart.data.labels = labels;
+    chart.data.datasets = datasets;
+    chart.update();
+    return chart
+  }
 
   function getVoltageFromEgauge(fetchOptions) {
     fetch(`https://cors-anywhere.herokuapp.com/http://${fetchOptions.deviceName}.${fetchOptions.proxyAddr}/cgi-bin/egauge-show?${fetchOptions.params}`, {
@@ -101,10 +130,15 @@
         console.log(result.err);
       }
       let jsonObj = parser.parse(xml, parserOptions);
-      // console.log(jsonObj);
-      let intervals = getDataIntervals(jsonObj);
+      let labels = getDataIntervals(jsonObj);
       let datasetArray = getDatasetObjects(jsonObj);
-      generateChart(data, intervals); //Make this function
+      if (chart === undefined) {
+        chart = generateChart(labels, datasetArray);
+      }
+      else {
+        chart = updateChart(chart, labels, datasetArray);
+        console.log(chart);
+      }
     });
   }
 
