@@ -28,6 +28,7 @@
       updateExistingObjectInArray(exists, newFetchOptionsObject);
     }
     document.getElementById('device-name').value = '';
+    getHistoricalFromEgauge(newOptionsObject);
   }
 
   function updateExistingObjectInArray(index, object) {
@@ -70,9 +71,6 @@
     let columns = obj.group.data.attr.columns;
     let rows = obj.group.data.r.length;
     for (let i=0; i<columns; i++) {
-      if (obj.group.data.cname[i].t === "V") {
-        continue;
-      }
       if (datasetObject.labels === undefined) {
         datasetObject.label = `${obj.group.data.cname[i].name} (${obj.group.data.cname[i].attr.t})`;
       }
@@ -81,7 +79,15 @@
       }
       for (let j=0; j<rows-1; j++){
         let delta = (Math.abs((obj.group.data.r[(j+1)].c[i]) - (obj.group.data.r[j].c[i])));
-        datasetObject.data.push(delta);
+        if (obj.group.data.cname[i].attr.t === "V"){
+          console.log(true);
+          deltaOverInterval = (delta / obj.group.data.attr.time_delta / 10000);
+          datasetObject.data.push(deltaOverInterval);
+        }
+        else {
+          deltaOverInterval = (delta / obj.group.data.attr.time_delta);
+          datasetObject.data.push(deltaOverInterval);
+        }
       }
       datasetObject.backgroundColor = ['rgba(255, 99, 132, 0.2)'];
       datasetArray.push(datasetObject);
@@ -90,36 +96,50 @@
     return datasetArray
   }
 
-  function generateChart(labels, datasets) {
-    console.log(datasets[0], datasets[1])
+  function generateChart(labels, datasets, title) {
     let ctx = document.getElementById("historical-chart").getContext("2d");
     let chart = new Chart(ctx, {
-      type: 'line',
+      type: 'bar',
       data: {
           labels: labels,
           datasets: datasets
       },
       options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero:true
-                  }
-              }]
+        title: {
+          display: true,
+          fontSize: 18,
+          text: title
+        },
+        layout: {
+          padding: {
+            top: 10
           }
+        },
+        legend: {
+          position: 'bottom'
+        },
+        responsive: true,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero:true
+            }
+          }]
+        }
       }
     });
     return chart;
   }
 
-  function updateChart(chart, labels, datasets) {
+  function updateChart(chart, labels, datasets, title) {
     chart.data.labels = labels;
     chart.data.datasets = datasets;
+    chart.options.title.text = title;
     chart.update();
     return chart
   }
 
-  function getVoltageFromEgauge(fetchOptions) {
+  function getHistoricalFromEgauge(fetchOptions) {
     fetch(`https://cors-anywhere.herokuapp.com/http://${fetchOptions.deviceName}.${fetchOptions.proxyAddr}/cgi-bin/egauge-show?${fetchOptions.params}`, {
     method: "GET"
     })
@@ -132,12 +152,12 @@
       let jsonObj = parser.parse(xml, parserOptions);
       let labels = getDataIntervals(jsonObj);
       let datasetArray = getDatasetObjects(jsonObj);
+      console.log(jsonObj);
       if (chart === undefined) {
-        chart = generateChart(labels, datasetArray);
+        chart = generateChart(labels, datasetArray, fetchOptions.deviceName);
       }
       else {
-        chart = updateChart(chart, labels, datasetArray);
-        console.log(chart);
+        chart = updateChart(chart, labels, datasetArray, fetchOptions.deviceName);
       }
     });
   }
@@ -161,7 +181,7 @@
   document.getElementById('favorites-list').addEventListener('click', function(event){
     event.preventDefault();
     let index = event.target.getAttribute('index');
-    getVoltageFromEgauge(optionsObjectArray[index]);
+    getHistoricalFromEgauge(optionsObjectArray[index]);
   });
 
 })();
