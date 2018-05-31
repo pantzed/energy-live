@@ -1,5 +1,4 @@
 (function (){
-
   let optionsObjectArray = [];
   let favoritesList = document.getElementById('favorites-list');
 
@@ -41,7 +40,6 @@
     link.setAttribute('index', optionsObjectArray.length - 1);
     listItem.appendChild(link);
     favoritesList.appendChild(listItem);
-    console.log(listItem);
   }
 
   function findExistingDeviceName(object) {
@@ -54,15 +52,41 @@
   }
 
 
+  function getVoltageFromEgauge(fetchOptions) {
+    fetch(`https://cors-anywhere.herokuapp.com/http://${fetchOptions.deviceName}.${fetchOptions.proxyAddr}/cgi-bin/egauge-show?m&n=3`, {
+    method: "GET"
+    })
+    .then((data) => data.text())
+    .then((xml) => {
+      let result = parser.validate(xml);
+      if (result !== true) {
+        console.log(result.err);
+      }
+      let jsonObj = parser.parse(xml, parserOptions);
+      console.log(jsonObj);
+    });
+  }
 
-  // function getVoltageFromEgauge(fetchOptions) {
-  //   fetch(`https://cors-anywhere.herokuapp.com/http://${deviceName}.${proxy}/cgi-bin/egauge-show?`, {
-  //   method: "GET"
-  //   })
-  //   .then((data) => data.text())
-  //   .then((xml) => {
-  //     console.log(xml);
-  //   });
-  // }
+  // options passed to fast-xml-parser "parser.parse(xml, options)"
+  const parserOptions = {
+    attributeNamePrefix : "",
+    attrNodeName: "attr", //declares all attribute names
+    textNodeName : "name", //declares all text node names
+    ignoreAttributes : false,
+    ignoreNameSpace : false,
+    allowBooleanAttributes : false,
+    parseNodeValue : false,
+    parseAttributeValue : false,
+    trimValues: true,
+    cdataTagName: "__cdata", //default is 'false'
+    cdataPositionChar: "\\c",
+    localeRange: "", //To support non english character in tag/attribute values.
+  }
+
+  document.getElementById('favorites-list').addEventListener('click', function(event){
+    event.preventDefault();
+    let index = event.target.getAttribute('index');
+    getVoltageFromEgauge(optionsObjectArray[index]);
+  });
 
 })();

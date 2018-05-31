@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"></link>
   <link rel="stylesheet" type="text/css" media="screen" href="../main.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fast-xml-parser/3.10.0/parser.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
@@ -31,21 +32,22 @@
           <li><a href="#">Historical</a></li>
           <li><a href="#" class="active">Voltage Graph</a></li>
         </ul>
+        <div class="favorites-list">Favorites List</div>
+          <ul id="favorites-list" class="favorites-list">
+            <!--Favorites List-->
+          </ul>
+        </div> 
       </aside>
       <main class="container">
         <div class="row">
-          <header>
-            <div class="table-title">Voltage Graph</div>
-          </header>
-          <div>Favorites List</div>
-          <ul id="favorites-list" class="favorites-list">
+          <div class="six columns">
+            <header>
+              <div class="table-title">Voltage Graph</div>
+            </header>
             
-          </ul>
-          
-          <!-- <section id="chart-container" class="chart-container twelve columns">
-            <canvas id="canvas-voltage-radar" class="graph-canvas" height="350" width="400"></canvas>
-          </section> -->
-        </div> <!--end row-->
+          <div id="raw-data" class="six columns">
+          </div>
+        </div><!--end row-->
       </main>
     </div>
     <footer>

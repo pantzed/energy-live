@@ -128,21 +128,20 @@ ul > li a {
   display: none;
 }
 
-.favorites-list li{
-  display: block; 
-  text-align: left;
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: right;
+  margin: 5px 10px 5px 20px;
+  color: #ff9800;
 }
 
-.favorites-list > li > a {
-  color: blue;
-  text-decoration-line: underline;
-
+.favorites-list li {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
-
-.favorites-list > li > a:hover {
-  text-decoration: #415A77;
-}
-
 
 @media screen and (max-width: 600px) {
   aside {

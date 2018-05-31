@@ -46,6 +46,7 @@ Transfer-Encoding: chunked
 ### Technical Stack
 * CSS Framework: Skeleton
 * Javascript Libraries: [Chart.js](http://www.chartjs.org/)
+* XML to JSON parser: [fast-xml-parser](https://www.npmjs.com/package/fast-xml-parser)
 * Deployment Method: Surge
     
 ### Feature List
