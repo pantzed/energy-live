@@ -5,7 +5,7 @@
   class FetchOptionsForNewGraph {
     constructor (deviceName, proxyAddr, params) {
       proxyAddr = proxyAddr || `egaug.es`;
-      params = params || {};
+      params = params || `m&n=11`;
       this.deviceName = deviceName;
       this.proxyAddr = proxyAddr;
       this.params = params;
@@ -51,9 +51,47 @@
     return false;
   }
 
+  function getDataIntervals(obj) {
+    let intervalArray = [];
+    let latestTime = parseInt(obj.group.data.attr.time_stamp, 16);
+    let deltaTime = obj.group.data.attr.time_delta;
+    let rows = obj.group.data.r.length;
+    for (let i=1; i<=rows-1; i++) {
+      let date = new Date(((latestTime - (deltaTime * i))*1000));
+      intervalArray.push(`${date.getHours()}:${date.getMinutes()}`);
+    }
+    return intervalArray;
+  }
+
+  function getDatasetObjects(obj) {
+    let datasetArray = [];
+    let datasetObject = {};
+    let columns = obj.group.data.attr.columns;
+    let rows = obj.group.data.r.length;
+    for (let i=0; i<columns; i++) {
+      if (datasetObject.labels === undefined) {
+        datasetObject.label = `${obj.group.data.cname[i].name} (${obj.group.data.cname[i].attr.t})`;
+      }
+      if (datasetObject.data === undefined) {
+        datasetObject.data = [];
+      }
+      if (datasetObject.yAxisID === undefined) {
+        datasetObject.yAxisID = obj.group.data.cname[i].attr.t;
+      }
+      for (let j=0; j<rows-1; j++){
+        let delta = (Math.abs((obj.group.data.r[(j+1)].c[i]) - (obj.group.data.r[j].c[i])));
+        datasetObject.data.push(delta);
+      }
+      datasetObject.backgroundColor = 'rgba(99, 132, 0, 0.5)';
+      datasetArray.push(datasetObject);
+      datasetObject = {};
+    }
+    return datasetArray
+  }
+
 
   function getVoltageFromEgauge(fetchOptions) {
-    fetch(`https://cors-anywhere.herokuapp.com/http://${fetchOptions.deviceName}.${fetchOptions.proxyAddr}/cgi-bin/egauge-show?m&n=3`, {
+    fetch(`https://cors-anywhere.herokuapp.com/http://${fetchOptions.deviceName}.${fetchOptions.proxyAddr}/cgi-bin/egauge-show?${fetchOptions.params}`, {
     method: "GET"
     })
     .then((data) => data.text())
@@ -63,11 +101,14 @@
         console.log(result.err);
       }
       let jsonObj = parser.parse(xml, parserOptions);
-      console.log(jsonObj);
+      // console.log(jsonObj);
+      let intervals = getDataIntervals(jsonObj);
+      let datasetArray = getDatasetObjects(jsonObj);
+      generateChart(data, intervals); //Make this function
     });
   }
 
-  // options passed to fast-xml-parser "parser.parse(xml, options)"
+  // options passed to fast-xml-parser: "parser.parse(xml, options)"
   const parserOptions = {
     attributeNamePrefix : "",
     attrNodeName: "attr", //declares all attribute names

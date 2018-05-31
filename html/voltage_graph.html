@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Energy Live: Voltage Graph</title>
+  <title>Energy Live: Historical Graph</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"></link>
   <link rel="stylesheet" type="text/css" media="screen" href="../main.css" />
@@ -30,22 +30,20 @@
         <ul>
           <li><a href="../index.html">Real-time</a></li>
           <li><a href="#">Historical</a></li>
-          <li><a href="#" class="active">Voltage Graph</a></li>
+          <li><a href="#" class="active">Historical Graph</a></li>
         </ul>
         <div class="favorites-list">Favorites List</div>
           <ul id="favorites-list" class="favorites-list">
             <!--Favorites List-->
           </ul>
-        </div> 
       </aside>
       <main class="container">
         <div class="row">
-          <div class="six columns">
+          <div class="twelve columns">
             <header>
-              <div class="table-title">Voltage Graph</div>
+              <div>Historical Graph</div>
             </header>
-            
-          <div id="raw-data" class="six columns">
+            <canvas id="histroical-chart"></canvas>
           </div>
         </div><!--end row-->
       </main>
