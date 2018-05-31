@@ -116,9 +116,13 @@
           }
         },
         legend: {
-          position: 'bottom'
+          position: 'bottom',
+          labels: {
+            boxWidth: 10
+          }
         },
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
           yAxes: [{
             ticks: {
