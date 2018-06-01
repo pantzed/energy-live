@@ -143,6 +143,23 @@ ul > li a {
   justify-content: flex-end;
 }
 
+.chart-options-form {
+  margin: 20px 0;
+}
+
+.chart-options-form > select {
+  margin: 0 10px 0 0;
+}
+
+.chart-options-form > button {
+  color: black;
+}
+
+.chart-header {
+  font-size: 1.8em;
+  margin: 20px 0;
+}
+
 @media screen and (max-width: 600px) {
   aside {
     display: none;

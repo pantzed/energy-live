@@ -41,11 +41,27 @@
         <div class="row">
           <div class="twelve columns">
             <header>
-              <div>Historical Graph (10 Minutes)</div>
+              <div class="chart-header">Historical Graph</div>
             </header>
             <div class="chart-container" style="position: relative; height:80vh;">
-                <canvas id="historical-chart"></canvas>
+                <canvas id="historical-chart" class="hidden"></canvas>
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="twelve columns">
+            <form id="chart-options" class="chart-options-form hidden">
+              <label for="interval-number">Data Interval:</label>
+              <input id="interval-number" type="number" name="interval-number" placeholder="1">
+              <!-- <label for="interval-unit">Interval Unit</label> -->
+              <select id="interval-unit" name="interval-unit">
+                <option value="s">Second(s)</option>
+                <option value="m">Minute(s)</option>
+                <option value="h">Hour(s)</option>
+                <option value="d">Day(s)</option>
+              </select>
+              <button type="submit">Update Graph</button>
+            </form>
           </div>
         </div><!--end row-->
       </main>

@@ -6,7 +6,7 @@
   class FetchOptionsForNewGraph {
     constructor (deviceName, proxyAddr, params) {
       proxyAddr = proxyAddr || `egaug.es`;
-      params = params || `h&n=11`;
+      params = params || {unit: "h", interval: "11"};
       this.deviceName = deviceName;
       this.proxyAddr = proxyAddr;
       this.params = params;
@@ -144,7 +144,7 @@
   }
 
   function getHistoricalFromEgauge(fetchOptions) {
-    fetch(`https://cors-anywhere.herokuapp.com/http://${fetchOptions.deviceName}.${fetchOptions.proxyAddr}/cgi-bin/egauge-show?${fetchOptions.params}`, {
+    fetch(`https://cors-anywhere.herokuapp.com/http://${fetchOptions.deviceName}.${fetchOptions.proxyAddr}/cgi-bin/egauge-show?${fetchOptions.params.unit}&n=${fetchOptions.params.interval}`, {
     method: "GET"
     })
     .then((data) => data.text())
@@ -163,6 +163,7 @@
       else {
         chart = updateChart(chart, labels, datasetArray, fetchOptions.deviceName);
       }
+      removeHiddenClass();
     });
   }
 
@@ -187,5 +188,20 @@
     let index = event.target.getAttribute('index');
     getHistoricalFromEgauge(optionsObjectArray[index]);
   });
+
+  function removeHiddenClass() {
+    document.getElementById('historical-chart').classList.remove('hidden');
+    document.getElementById('chart-options').classList.remove('hidden');
+  }
+
+  function updateChartIntervalAndUnits(interval, units) {
+    updateChart
+  }
+
+  document.getElementById('chart-options').addEventListener('submit', function(){
+    let interval = document.getElementById('interval-number').value;
+    let units = document.getElementById('interval-unit').value;
+    
+  })
 
 })();
