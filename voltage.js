@@ -6,7 +6,7 @@
   class FetchOptionsForNewGraph {
     constructor (deviceName, proxyAddr, params) {
       proxyAddr = proxyAddr || `egaug.es`;
-      params = params || `m&n=11`;
+      params = params || `h&n=11`;
       this.deviceName = deviceName;
       this.proxyAddr = proxyAddr;
       this.params = params;
