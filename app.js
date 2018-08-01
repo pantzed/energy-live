@@ -1,7 +1,7 @@
 (function(){
   let abort;
   let proxy = 'egaug.es';
-  let deviceName;
+  let deviceName = 'egauge8642';
   let xmlDOM;
   let jsonObject;
   let registers;
@@ -195,6 +195,7 @@
       getInformationForChartsFromRegisters(registers);
       let newChart = makeChartObject();
       chartObjArray.push(newChart);
+      document.getElementById('table-title').innerHTML = `${deviceName} Live Data`;
     })
     .then(() => {
       if (abort === true){
@@ -211,6 +212,8 @@
     })
   }
 
+  callEgauge(); //load initial data with default egauge name
+
   function clearAllOnNewSubmit() {
     event.preventDefault();
     xmlDOM = '';
@@ -219,7 +222,7 @@
     serial = '';
     registers = '';
     deviceName = document.getElementById('device-name').value;
-    document.getElementById('table-title').innerHTML = `${deviceName} Live Data`;
+    document.getElementById('table-title').innerHTML = `Loading...`;
   }
 
   function clearForm() {
@@ -227,6 +230,7 @@
   }
 
   document.getElementById('device-form').addEventListener('submit', function(){
+    document.getElementById('table-title').innerHTML = `Loading...`;
     clearAllOnNewSubmit();
     clearForm();
     removeBlinker();

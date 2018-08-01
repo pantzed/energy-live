@@ -17,6 +17,7 @@
 
   function newFetchOptionsObject(event) {
     event.preventDefault();
+    document.getElementById('chart-header').innerHTML = "Loading...";
     let deviceName = document.getElementById('device-name').value;
     let newOptionsObject = new FetchOptionsForNewGraph(deviceName);
     let exists = findExistingDeviceName(newOptionsObject);
@@ -156,7 +157,7 @@
       let jsonObj = parser.parse(xml, parserOptions);
       let labels = getDataIntervals(jsonObj);
       let datasetArray = getDatasetObjects(jsonObj);
-      console.log(jsonObj);
+      document.getElementById('chart-header').innerHTML = `${fetchOptions.deviceName} Historical`;
       if (chart === undefined) {
         chart = generateChart(labels, datasetArray, fetchOptions.deviceName);
       }
@@ -166,6 +167,9 @@
       removeHiddenClass();
     });
   }
+
+  let initialDevice = new FetchOptionsForNewGraph('egauge8642');
+  getHistoricalFromEgauge(initialDevice);
 
   // options passed to fast-xml-parser: "parser.parse(xml, options)"
   const parserOptions = {
