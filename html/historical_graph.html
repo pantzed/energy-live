@@ -15,16 +15,39 @@
 </head>
 <body>
   <body>
-    <nav>
-      <span>Energy Live</span>
-      <section class="input">
-          <form id="device-form" method="POST">
+    <!-- Hidden on Mobile -->
+    <nav class="nav-mobile">
+      <div class="title-flex">
+        <span>Energy Live</span>
+        <button id="mobile-menu-button" class="mobile-menu-button" type="button">Menu</button>
+      </div>
+      <section id="hide-show-menu" class="toggle-hidden">
+        <form id="device-form" method="POST">
+          <div>
             <label for="device-name">Enter Your Device:</label>
             <input id="device-name" type="text" name="device-name" placeholder="eg. 'egauge8642'">
             <button type="submit">Submit</button>
-          </form>
-        </section>
+          </div>
+        </form>
+        <ul id="mobile-aside">
+          <li><a href="../index.html">Real-time</a></li>
+          <li><a href="#" class="active">Historical Graph</a></li>
+        </ul>
+      </section>
     </nav>
+    <!-- ************** -->
+    <!-- Hidden on Non-mobile -->
+    <nav class="nav">
+      <span>Energy Live</span>
+      <section class="input">
+        <form id="device-form" method="POST">
+          <label for="device-name">Enter Your Device:</label>
+          <input id="device-name" type="text" name="device-name" placeholder="eg. 'egauge8642'">
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+    </nav>
+    <!-- ************** -->
     <div class="flex-aside-and-main">
       <aside>
         <ul>
@@ -36,7 +59,7 @@
             <!--Favorites List-->
           </ul>
       </aside>
-      <main class="container">
+      <main id="main-content" class="container">
         <div class="row">
           <div class="twelve columns">
             <header>
@@ -77,4 +100,5 @@
   </body>
 </body>
 <script src="../historical.js"></script>
+<script src="../mobile-nav.js"></script>
 </html>

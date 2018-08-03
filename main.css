@@ -160,13 +160,77 @@ ul > li a {
   margin: 20px 0;
 }
 
+.nav {
+  display: block;
+}
+
+.nav-mobile {
+  display: none;
+}
+
+.toggle-hidden {
+  display: none;
+}
+
+.title-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.mobile-menu-button {
+  color: white;
+  margin: auto 10px;
+}
+ 
+.mobile-menu-button:visited, .mobile-menu-button:active{
+  color: white;
+}
+
 @media screen and (max-width: 600px) {
   aside {
     display: none;
+  }
+
+  ul {
+    background-color: #1B263B;
+    margin: 0;
+    padding: 20px 0;
+  }
+
+  ul li {
+    flex-direction: row;
   }
 
   .chart-container {
     position: relative;
     margin-bottom: 50px;
   }
+
+  .nav {
+    display: none;
+  }
+
+  .nav-mobile {
+    display: block;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  form label {
+    margin: 0;
+  }
+
+  form button {
+    margin: 10px 10px;
+  }
+
+  form div {
+    margin: 10px 20px;
+  }
+
 }

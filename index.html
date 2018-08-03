@@ -13,16 +13,39 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 </head>
   <body>
-    <nav>
-      <span>Energy Live</span>
-      <section class="input">
-          <form id="device-form" method="POST">
+    <!-- Hidden on Mobile -->
+    <nav class="nav-mobile">
+      <div class="title-flex">
+        <span>Energy Live</span>
+        <button id="mobile-menu-button" class="mobile-menu-button" type="button">Menu</button>
+      </div>
+      <section id="hide-show-menu" class="toggle-hidden">
+        <form id="device-form" method="POST">
+          <div>
             <label for="device-name">Enter Your Device:</label>
             <input id="device-name" type="text" name="device-name" placeholder="eg. 'egauge8642'">
             <button type="submit">Submit</button>
-          </form>
-        </section>
+          </div>
+        </form>
+        <ul id="mobile-aside">
+          <li><a href="#" class="active">Real-time</a></li>
+          <li><a href="./html/historical_graph.html">Historical Graph</a></li>
+        </ul>
+      </section>
     </nav>
+    <!-- ************** -->
+    <!-- Hidden on Non-mobile -->
+    <nav class="nav">
+      <span>Energy Live</span>
+      <section class="input">
+        <form id="device-form" method="POST">
+          <label for="device-name">Enter Your Device:</label>
+          <input id="device-name" type="text" name="device-name" placeholder="eg. 'egauge8642'">
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+    </nav>
+    <!-- ************** -->
     <div class="flex-aside-and-main">
       <aside>
         <ul>
@@ -30,7 +53,7 @@
           <li><a href="./html/historical_graph.html">Historical Graph</a></li>
         </ul>
       </aside>
-      <main class="container">
+      <main id="main-content" class="container">
         <div class="row">
           <section class="six columns">
             <div class="flex-blinker">
@@ -67,4 +90,5 @@
     </footer>
   </body>
   <script src="app.js"></script>
+  <script src="mobile-nav.js"></script>
 </html>
