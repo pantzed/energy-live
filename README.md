@@ -50,10 +50,15 @@ Transfer-Encoding: chunked
 * Deployment Method: Surge
     
 ### Feature List
-* Input a specific energy meter
-* Display numerical data in a table
-* Bar graph showing value for each measurement point
+* ~~Input a specific energy meter~~
+* ~~Display numerical data in a table~~
+* ~~Bar graph showing value for each measurement point~~
 * Mobile friendly/Responsive design
+* Merge scripts for historical and real-time displays
+* Use local storage object for saving favorite devices
+* Load most recently visited device when returning to the page
+* Replace Skeleton with Bootstrap 4
+* Deploy with heroku
 
 
 
