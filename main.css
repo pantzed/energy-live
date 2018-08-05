@@ -161,10 +161,6 @@ ul > li a {
   margin: 20px 0;
 }
 
-.nav {
-  display: block;
-}
-
 .nav-mobile {
   display: none;
 }
