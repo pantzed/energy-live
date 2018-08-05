@@ -14,6 +14,7 @@
   }
 
   document.getElementById('device-form').addEventListener('submit', newFetchOptionsObject);
+  document.getElementById('device-form-mobile').addEventListener('submit', newFetchOptionsObject);
 
   function newFetchOptionsObject(event) {
     event.preventDefault();
@@ -81,7 +82,6 @@
       for (let j=0; j<rows-1; j++){
         let delta = (Math.abs((obj.group.data.r[(j+1)].c[i]) - (obj.group.data.r[j].c[i])));
         if (obj.group.data.cname[i].attr.t === "V"){
-          console.log(true);
           deltaOverInterval = (delta / obj.group.data.attr.time_delta / 1000);
           datasetObject.data.push(deltaOverInterval);
         }
